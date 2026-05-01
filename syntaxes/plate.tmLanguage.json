@@ -1,0 +1,136 @@
+{
+    "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+    "name": "Plate",
+    "scopeName": "source.plate",
+    "patterns": [
+        {
+            "include": "#plate-directive"
+        },
+        {
+            "include": "#html"
+        }
+    ],
+    "repository": {
+        "html": {
+            "patterns": [
+                {
+                    "begin": "(?=<)",
+                    "end": "(?={{)",
+                    "patterns": [
+                        {
+                            "include": "text.html.basic"
+                        }
+                    ],
+                    "name": "meta.embedded.block.html"
+                }
+            ]
+        },
+        "plate-directive": {
+            "begin": "\\{\\{",
+            "beginCaptures": {
+                "0": {
+                    "name": "punctuation.definition.tag.begin.plate"
+                }
+            },
+            "end": "\\}\\}",
+            "endCaptures": {
+                "0": {
+                    "name": "punctuation.definition.tag.end.plate"
+                }
+            },
+            "patterns": [
+                {
+                    "match": "\\s+",
+                    "name": "meta.whitespace.plate"
+                },
+                {
+                    "include": "#plate-comment"
+                },
+                {
+                    "include": "#plate-keyword"
+                },
+                {
+                    "include": "#plate-raw-php"
+                },
+                {
+                    "match": "(==)([\\s\\S]*?)(?=\\}\\})",
+                    "captures": {
+                        "1": {
+                            "name": "punctuation.definition.template-expression.plate"
+                        },
+                        "2": {
+                            "name": "constant.character.escape.plate"
+                        }
+                    }
+                },
+                {
+                    "include": "#plate-expression"
+                }
+            ]
+        },
+        "plate-comment": {
+            "begin": "#",
+            "end": "(?=\\}\\})",
+            "name": "comment.line.number-sign.plate"
+        },
+        "plate-keyword": {
+            "begin": "\\b(if|elseif|else|each)\\s*(:|;)",
+            "beginCaptures": {
+                "1": {
+                    "name": "keyword.control.plate"
+                },
+                "2": {
+                    "name": "punctuation.separator.plate"
+                }
+            },
+            "end": "(?=\\}\\})",
+            "patterns": [
+                {
+                    "match": "\\bas\\b",
+                    "name": "keyword.control.loop.plate"
+                },
+                {
+                    "include": "source.php"
+                }
+            ]
+        },
+        "plate-raw-php": {
+            "begin": ":",
+            "beginCaptures": {
+                "0": {
+                    "name": "keyword.other.raw-php.plate"
+                }
+            },
+            "end": "(?=\\}\\})",
+            "patterns": [
+                {
+                    "include": "source.php"
+                }
+            ]
+        },
+        "plate-expression": {
+            "begin": "(?=\\$|\"|'|\\d|[a-zA-Z_])",
+            "end": "(?=\\}\\})",
+            "patterns": [
+                {
+                    "include": "#plate-expression-content"
+                }
+            ]
+        },
+        "plate-expression-content": {
+            "patterns": [
+                {
+                    "include": "source.php"
+                },
+                {
+                    "match": "\\$\\w+",
+                    "name": "variable.other.plate"
+                },
+                {
+                    "match": ",",
+                    "name": "punctuation.separator.plate"
+                }
+            ]
+        }
+    }
+}

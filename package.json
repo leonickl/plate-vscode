@@ -1,0 +1,30 @@
+{
+  "name": "plate-syntax",
+  "publisher": "leosn",
+  "displayName": "Plate Template Syntax",
+  "description": "Syntax highlighting for Plate template files",
+  "version": "0.1.0",
+  "engines": {
+    "vscode": "^1.70.0"
+  },
+  "contributes": {
+    "languages": [
+      {
+        "id": "plate",
+        "aliases": ["Plate", "plate"],
+        "extensions": [".plate", ".plate.php"]
+      }
+    ],
+    "grammars": [
+      {
+        "language": "plate",
+        "scopeName": "source.plate",
+        "path": "./syntaxes/plate.tmLanguage.json",
+        "embeddedLanguages": {
+          "meta.embedded.block.html": "html",
+          "source.php": "php"
+        }
+      }
+    ]
+  }
+}
