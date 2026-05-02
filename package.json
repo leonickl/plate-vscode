@@ -3,7 +3,7 @@
   "publisher": "leonickl",
   "displayName": "Plate",
   "description": "Syntax highlighting for Plate template files",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "repository": {
     "type": "git",
     "url": "https://github.com/leonickl/plate-vscode.git"
