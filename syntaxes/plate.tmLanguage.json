@@ -14,6 +14,9 @@
         "html": {
             "patterns": [
                 {
+                    "include": "#html-tag"
+                },
+                {
                     "begin": "(?=<)",
                     "end": "(?={{)",
                     "patterns": [
@@ -22,6 +25,105 @@
                         }
                     ],
                     "name": "meta.embedded.block.html"
+                }
+            ]
+        },
+        "html-tag": {
+            "begin": "(</?)([a-zA-Z0-9:-]+)",
+            "beginCaptures": {
+                "1": {
+                    "name": "punctuation.definition.tag.begin.html"
+                },
+                "2": {
+                    "name": "entity.name.tag.html"
+                }
+            },
+            "end": "(/?>)",
+            "endCaptures": {
+                "1": {
+                    "name": "punctuation.definition.tag.end.html"
+                }
+            },
+            "name": "meta.embedded.block.html meta.tag.html",
+            "patterns": [
+                {
+                    "include": "#html-attribute-with-plate"
+                },
+                {
+                    "include": "#html-attribute-with-plate-single"
+                },
+                {
+                    "include": "text.html.basic#tag-stuff"
+                }
+            ]
+        },
+        "html-attribute-with-plate": {
+            "begin": "(\\b[a-zA-Z_][\\w\\-:.]*)\\s*(=)\\s*(\")",
+            "end": "\\3",
+            "beginCaptures": {
+                "1": {
+                    "name": "entity.other.attribute-name.html"
+                },
+                "2": {
+                    "name": "punctuation.separator.key-value.html"
+                },
+                "3": {
+                    "name": "punctuation.definition.string.begin.html"
+                }
+            },
+            "endCaptures": {
+                "0": {
+                    "name": "punctuation.definition.string.end.html"
+                }
+            },
+            "patterns": [
+                {
+                    "include": "#plate-expression-in-string"
+                }
+            ]
+        },
+        "html-attribute-with-plate-single": {
+            "begin": "(\\b[a-zA-Z_][\\w\\-:.]*)\\s*(=)\\s*(')",
+            "end": "\\3",
+            "beginCaptures": {
+                "1": {
+                    "name": "entity.other.attribute-name.html"
+                },
+                "2": {
+                    "name": "punctuation.separator.key-value.html"
+                },
+                "3": {
+                    "name": "punctuation.definition.string.begin.html"
+                }
+            },
+            "endCaptures": {
+                "0": {
+                    "name": "punctuation.definition.string.end.html"
+                }
+            },
+            "patterns": [
+                {
+                    "include": "#plate-expression-in-string"
+                }
+            ]
+        },
+        "plate-expression-in-string": {
+            "begin": "\\{\\{",
+            "end": "\\}\\}",
+            "beginCaptures": {
+                "0": {
+                    "name": "punctuation.definition.tag.begin.plate"
+                }
+            },
+            "endCaptures": {
+                "0": {
+                    "name": "punctuation.definition.tag.end.plate"
+                }
+            },
+            "contentName": "meta.embedded.line.plate",
+            "patterns": [
+                {
+                    "include": "#plate-expression-content"
                 }
             ]
         },
