@@ -176,7 +176,7 @@
             "name": "comment.line.number-sign.plate"
         },
         "plate-keyword": {
-            "begin": "\\b(if|elseif|else|each)\\s*(:|;)",
+            "begin": "\\b(if|elif|else|each|plug)\\s*(:|;)",
             "beginCaptures": {
                 "1": {
                     "name": "keyword.control.plate"
