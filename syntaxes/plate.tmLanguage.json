@@ -155,7 +155,7 @@
                     "include": "#plate-raw-php"
                 },
                 {
-                    "match": "(==)([\\s\\S]*?)(?=\\}\\})",
+                    "match": "(%)([\\s\\S]*?)(?=\\}\\})",
                     "captures": {
                         "1": {
                             "name": "punctuation.definition.template-expression.plate"
@@ -176,7 +176,7 @@
             "name": "comment.line.number-sign.plate"
         },
         "plate-keyword": {
-            "begin": "\\b(if|elif|else|each|plug)\\s*(:|;)",
+            "begin": "\\b(if|elif|else|each|plug|php)\\s*(:|;)",
             "beginCaptures": {
                 "1": {
                     "name": "keyword.control.plate"
